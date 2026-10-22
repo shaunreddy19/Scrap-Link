@@ -1,0 +1,586 @@
+/* ==========================================================================
+   SCRAP-LINK Modern Aesthetic Industrial Stylesheet
+   Color Palette: Pure Safety Yellow (#FACC15), Jet Black (#090D16), Crisp White (#FFFFFF)
+   Light & Dark Mode Supported • Smooth Transitions • Non-Intimidating Clean UI
+   ========================================================================== */
+
+:root {
+  --font-sans: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  --font-mono: "SF Mono", "JetBrains Mono", Consolas, monospace;
+
+  /* Theme: Dark (Default) */
+  --bg-body: #080C14;
+  --bg-header: rgba(13, 19, 32, 0.92);
+  --bg-card: #0F1626;
+  --bg-card-hover: #141E33;
+  --bg-subtle: #162035;
+  --bg-input: #0A0F1A;
+  
+  --text-main: #FFFFFF;
+  --text-body: #E2E8F0;
+  --text-muted: #94A3B8;
+  --text-faint: #64748B;
+  
+  --border-color: #1E2B45;
+  --border-focus: #FACC15;
+
+  --yellow: #FACC15;
+  --yellow-hover: #EAB308;
+  --yellow-glow: rgba(250, 204, 21, 0.18);
+  --yellow-badge-bg: rgba(250, 204, 21, 0.12);
+
+  --green: #22C55E;
+  --green-bg: rgba(34, 197, 94, 0.12);
+  --red: #EF4444;
+  --red-bg: rgba(239, 68, 68, 0.12);
+
+  --shadow-sm: 0 2px 6px rgba(0, 0, 0, 0.3);
+  --shadow-md: 0 8px 24px rgba(0, 0, 0, 0.4);
+}
+
+[data-theme="light"] {
+  --bg-body: #F8FAFC;
+  --bg-header: rgba(255, 255, 255, 0.94);
+  --bg-card: #FFFFFF;
+  --bg-card-hover: #F1F5F9;
+  --bg-subtle: #F1F5F9;
+  --bg-input: #F8FAFC;
+  
+  --text-main: #090D16;
+  --text-body: #1E293B;
+  --text-muted: #64748B;
+  --text-faint: #94A3B8;
+  
+  --border-color: #E2E8F0;
+  --border-focus: #CA8A04;
+
+  --yellow: #EAB308;
+  --yellow-hover: #CA8A04;
+  --yellow-glow: rgba(234, 179, 8, 0.15);
+  --yellow-badge-bg: rgba(234, 179, 8, 0.15);
+
+  --green: #16A34A;
+  --green-bg: rgba(22, 163, 74, 0.1);
+  --red: #DC2626;
+  --red-bg: rgba(220, 38, 38, 0.1);
+
+  --shadow-sm: 0 1px 4px rgba(0, 0, 0, 0.05);
+  --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+/* Base Resets */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  transition: background-color 0.2s ease, border-color 0.2s ease, color 0.15s ease;
+}
+
+html {
+  scroll-behavior: smooth;
+}
+
+body {
+  background-color: var(--bg-body);
+  color: var(--text-body);
+  font-family: var(--font-sans);
+  line-height: 1.6;
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+/* 12. Skip to Content */
+.skip-link {
+  position: absolute;
+  top: -60px;
+  left: 20px;
+  background: var(--yellow);
+  color: #000;
+  padding: 8px 16px;
+  font-weight: bold;
+  z-index: 1000;
+  border-radius: 4px;
+}
+.skip-link:focus {
+  top: 15px;
+}
+
+/* 8. Scroll Progress Bar */
+#scroll-progress {
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 3px;
+  background: var(--yellow);
+  width: 0%;
+  z-index: 9999;
+  transition: width 0.1s;
+}
+
+/* 11. Sticky Header */
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 200;
+  background-color: var(--bg-header);
+  backdrop-filter: blur(12px);
+  border-bottom: 1px solid var(--border-color);
+  padding: 12px 24px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-sm);
+}
+
+.brand-wrapper {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+}
+
+.brand-icon-box {
+  background-color: var(--yellow);
+  color: #000;
+  font-family: var(--font-mono);
+  font-weight: 900;
+  font-size: 14px;
+  padding: 4px 8px;
+  border-radius: 6px;
+  letter-spacing: 0.5px;
+}
+
+.brand-text {
+  font-size: 18px;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.3px;
+}
+
+.header-actions {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+/* 1. Dark Mode Toggle Button */
+.theme-btn {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+.theme-btn:hover {
+  border-color: var(--yellow);
+}
+
+/* 5. Mobile Menu Toggle */
+.mobile-menu-btn {
+  display: none;
+  background: none;
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  padding: 6px 10px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 18px;
+}
+
+@media (max-width: 860px) {
+  .mobile-menu-btn { display: block; }
+  .nav-menu-desktop { display: none !important; }
+}
+
+/* Navigation Links */
+.nav-menu {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.nav-link {
+  color: var(--text-muted);
+  text-decoration: none;
+  font-size: 13px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 6px;
+  cursor: pointer;
+}
+.nav-link:hover, .nav-link.active {
+  color: var(--text-main);
+  background: var(--bg-subtle);
+}
+.nav-link.active {
+  color: #000;
+  background: var(--yellow);
+}
+
+/* Mobile Drawer Menu */
+#mobile-drawer {
+  display: none;
+  position: fixed;
+  top: 60px;
+  left: 0;
+  width: 100%;
+  background: var(--bg-header);
+  border-bottom: 1px solid var(--border-color);
+  padding: 16px 24px;
+  flex-direction: column;
+  gap: 8px;
+  z-index: 199;
+}
+#mobile-drawer.open {
+  display: flex;
+}
+
+/* Main Container */
+.container {
+  max-width: 1180px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 32px 20px;
+  flex: 1;
+}
+
+/* Hero Section */
+.hero-box {
+  text-align: center;
+  max-width: 720px;
+  margin: 0 auto 36px auto;
+}
+
+.badge-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  font-weight: 700;
+  background: var(--yellow-badge-bg);
+  color: var(--yellow);
+  border: 1px solid var(--yellow-glow);
+  margin-bottom: 14px;
+}
+
+.hero-title {
+  font-size: 34px;
+  font-weight: 800;
+  color: var(--text-main);
+  letter-spacing: -0.5px;
+  line-height: 1.25;
+  margin-bottom: 12px;
+}
+
+.hero-sub {
+  font-size: 15px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+
+/* ================= STEPPER PROGRESS BAR ================= */
+.stepper-nav {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 32px;
+}
+
+.step-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 30px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--text-muted);
+  cursor: pointer;
+}
+.step-item.active {
+  background: var(--yellow);
+  border-color: var(--yellow);
+  color: #000;
+  box-shadow: 0 4px 14px var(--yellow-glow);
+}
+.step-item.completed {
+  border-color: var(--green);
+  color: var(--green);
+}
+.step-number {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background: rgba(0,0,0,0.15);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 11px;
+}
+
+.step-divider {
+  width: 32px;
+  height: 2px;
+  background: var(--border-color);
+}
+
+/* Main Cards */
+.card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+.card:hover {
+  box-shadow: var(--shadow-md);
+}
+
+/* 7. Hover States for Buttons */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 20px;
+  border-radius: 8px;
+  font-size: 14px;
+  font-weight: 700;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+.btn:hover {
+  transform: translateY(-1px);
+}
+.btn-primary {
+  background: var(--yellow);
+  color: #000;
+  border-color: var(--yellow);
+}
+.btn-primary:hover {
+  background: var(--yellow-hover);
+  box-shadow: 0 4px 12px var(--yellow-glow);
+}
+.btn-secondary {
+  background: var(--bg-subtle);
+  color: var(--text-main);
+  border-color: var(--border-color);
+}
+.btn-secondary:hover {
+  border-color: var(--yellow);
+}
+
+/* 6. Loading Animation during AI Scan */
+.scan-line-anim {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, transparent, var(--yellow), transparent);
+  box-shadow: 0 0 12px var(--yellow);
+  animation: scanMove 1.8s infinite ease-in-out;
+}
+@keyframes scanMove {
+  0% { top: 5%; opacity: 0.3; }
+  50% { top: 90%; opacity: 1; }
+  100% { top: 5%; opacity: 0.3; }
+}
+
+/* 9. Copy Button & Tooltip */
+.btn-copy {
+  background: var(--bg-subtle);
+  border: 1px solid var(--border-color);
+  color: var(--text-muted);
+  padding: 4px 10px;
+  border-radius: 6px;
+  font-size: 11px;
+  font-family: var(--font-mono);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  gap: 4px;
+}
+.btn-copy:hover {
+  color: var(--text-main);
+  border-color: var(--yellow);
+}
+
+/* 19. Expandable FAQ Accordion */
+.faq-item {
+  border: 1px solid var(--border-color);
+  border-radius: 8px;
+  background: var(--bg-card);
+  margin-bottom: 10px;
+  overflow: hidden;
+}
+.faq-question {
+  padding: 16px 20px;
+  font-weight: 700;
+  color: var(--text-main);
+  cursor: pointer;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  user-select: none;
+}
+.faq-answer {
+  display: none;
+  padding: 0 20px 16px 20px;
+  font-size: 13px;
+  color: var(--text-muted);
+  line-height: 1.6;
+}
+.faq-item.open .faq-answer {
+  display: block;
+}
+.faq-item.open .faq-icon {
+  transform: rotate(180deg);
+}
+
+/* 2. Simple Cookie Banner */
+#cookie-banner {
+  position: fixed;
+  bottom: 20px;
+  left: 20px;
+  max-width: 380px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-left: 4px solid var(--yellow);
+  box-shadow: var(--shadow-md);
+  border-radius: 8px;
+  padding: 14px 18px;
+  z-index: 1000;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+/* 4. Back to Top Button */
+#back-to-top {
+  position: fixed;
+  bottom: 80px;
+  right: 24px;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  color: var(--text-main);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  box-shadow: var(--shadow-sm);
+  z-index: 900;
+}
+#back-to-top:hover {
+  border-color: var(--yellow);
+  color: var(--yellow);
+}
+
+/* 20. Floating Contact Button & Drawer */
+#floating-contact-btn {
+  position: fixed;
+  bottom: 20px;
+  right: 24px;
+  background: var(--yellow);
+  color: #000;
+  font-weight: 800;
+  padding: 10px 18px;
+  border-radius: 30px;
+  box-shadow: var(--shadow-md);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  z-index: 950;
+  border: none;
+}
+#floating-contact-btn:hover {
+  transform: scale(1.04);
+}
+
+#contact-drawer {
+  position: fixed;
+  bottom: 74px;
+  right: 24px;
+  width: 340px;
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  box-shadow: var(--shadow-md);
+  padding: 20px;
+  display: none;
+  flex-direction: column;
+  gap: 12px;
+  z-index: 960;
+}
+
+/* 17. Confirmation Modal */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: rgba(0, 0, 0, 0.75);
+  backdrop-filter: blur(4px);
+  display: none;
+  align-items: center;
+  justify-content: center;
+  z-index: 2000;
+  padding: 20px;
+}
+.modal-box {
+  background: var(--bg-card);
+  border: 1px solid var(--border-color);
+  border-radius: 12px;
+  max-width: 480px;
+  width: 100%;
+  padding: 24px;
+  box-shadow: var(--shadow-md);
+}
+
+/* 15 & 16. Form Feedback Badges */
+.toast-msg {
+  position: fixed;
+  top: 75px;
+  right: 24px;
+  background: var(--green-bg);
+  border: 1px solid var(--green);
+  color: var(--green);
+  padding: 10px 16px;
+  border-radius: 8px;
+  font-size: 13px;
+  font-weight: 700;
+  display: none;
+  z-index: 3000;
+  box-shadow: var(--shadow-md);
+}
+
+/* 10. Print Stylesheet */
+@media print {
+  body { background: #fff !important; color: #000 !important; }
+  .app-header, .stepper-nav, #floating-contact-btn, #cookie-banner, #back-to-top, .skip-link, .header-actions {
+    display: none !important;
+  }
+  .card { border: 1px solid #ccc !important; box-shadow: none !important; }
+}

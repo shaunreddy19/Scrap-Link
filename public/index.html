@@ -1,0 +1,645 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Scrap Link | Tech-Enabled Recyclables Inspection & Warehouse Network</title>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=JetBrains+Mono:wght@500;700&display=swap" rel="stylesheet">
+</head>
+<body>
+
+  <!-- 12. Skip to Content Link for Accessibility -->
+  <a href="#main-content" class="skip-link">Skip to main content</a>
+
+  <!-- 8. Scroll Progress Bar -->
+  <div id="scroll-progress"></div>
+
+  <!-- 15. Form / Action Success Toast -->
+  <div id="toast-notification" class="toast-msg">✓ Action completed successfully!</div>
+
+  <!-- 11. Sticky Header with 1. Dark Mode, 5. Mobile Menu, 3. Search -->
+  <header class="app-header">
+    <div style="display:flex; align-items:center; gap:20px;">
+      <a href="#" class="brand-wrapper">
+        <div class="brand-icon-box">SL</div>
+        <span class="brand-text">Scrap Link</span>
+      </a>
+
+      <!-- 3. Site Search -->
+      <div style="position:relative; display:flex; align-items:center;" class="nav-menu-desktop">
+        <input id="site-search-input" type="text" placeholder="Search batch, dealer, or spec..." 
+               style="background:var(--bg-subtle); border:1px solid var(--border-color); color:var(--text-main); padding:6px 12px 6px 30px; border-radius:20px; font-size:12px; width:220px;" 
+               onkeyup="handleSiteSearch(this.value)">
+        <span style="position:absolute; left:10px; font-size:12px; color:var(--text-muted); pointer-events:none;">🔍</span>
+      </div>
+    </div>
+
+    <!-- Navigation Links -->
+    <nav class="nav-menu nav-menu-desktop">
+      <a class="nav-link active" onclick="switchNavSection('workflow')">Demo Flow</a>
+      <a class="nav-link" onclick="switchNavSection('warehouses')">Warehouses</a>
+      <a class="nav-link" onclick="switchNavSection('ledger')">Batches</a>
+      <a class="nav-link" onclick="switchNavSection('cad')">CAD Specs</a>
+      <a class="nav-link" onclick="switchNavSection('faq')">FAQ</a>
+    </nav>
+
+    <!-- Header Actions -->
+    <div class="header-actions">
+      <!-- 1. Dark Mode Toggle -->
+      <button class="theme-btn" onclick="toggleTheme()" id="theme-toggle-btn" title="Toggle Light / Dark Mode">
+        <span id="theme-icon">🌙</span> <span id="theme-text">Dark</span>
+      </button>
+
+      <!-- Operator Sign In (with 13. Password Toggle) -->
+      <button class="btn btn-secondary" style="padding:6px 14px; font-size:12px;" onclick="openLoginModal()">
+        Operator Login
+      </button>
+
+      <!-- 5. Mobile Hamburger -->
+      <button class="mobile-menu-btn" onclick="toggleMobileMenu()">☰</button>
+    </div>
+  </header>
+
+  <!-- Mobile Drawer -->
+  <div id="mobile-drawer">
+    <a class="nav-link" onclick="switchNavSection('workflow'); toggleMobileMenu();">Demo Flow</a>
+    <a class="nav-link" onclick="switchNavSection('warehouses'); toggleMobileMenu();">Warehouses</a>
+    <a class="nav-link" onclick="switchNavSection('ledger'); toggleMobileMenu();">Batches</a>
+    <a class="nav-link" onclick="switchNavSection('cad'); toggleMobileMenu();">CAD Specs</a>
+    <a class="nav-link" onclick="switchNavSection('faq'); toggleMobileMenu();">FAQ</a>
+  </div>
+
+  <!-- Main Content Wrapper -->
+  <main class="container" id="main-content">
+
+    <!-- ============================================================== -->
+    <!-- SECTION 1: SIMPLIFIED 3-STEP DEMO WORKFLOW                    -->
+    <!-- ============================================================== -->
+    <div id="section-workflow" class="nav-section">
+      
+      <!-- Clean Hero -->
+      <div class="hero-box">
+        <div class="badge-pill">
+          <span>●</span> <span>HARDWARE-ASSISTED WASTE MANAGEMENT</span>
+        </div>
+        <h1 class="hero-title">Screen Recyclables. Measure Useful Value. Connect Warehouses.</h1>
+        <p class="hero-sub">
+          A physical-to-digital bridge for local collection points: scan PET bottles for visible contamination, measure useful weight, and match instantly with verified recycling dealers.
+        </p>
+      </div>
+
+      <!-- 3-Step Progress Stepper -->
+      <div class="stepper-nav">
+        <div class="step-item active" id="step-nav-1" onclick="jumpToStep(1)">
+          <div class="step-number">1</div>
+          <span>Take / Select Photo</span>
+        </div>
+        <div class="step-divider"></div>
+        <div class="step-item" id="step-nav-2" onclick="jumpToStep(2)">
+          <div class="step-number">2</div>
+          <span>Measure & Inspect</span>
+        </div>
+        <div class="step-divider"></div>
+        <div class="step-item" id="step-nav-3" onclick="jumpToStep(3)">
+          <div class="step-number">3</div>
+          <span>Dispatch to Warehouse</span>
+        </div>
+      </div>
+
+      <!-- STEP 1 CONTAINER: Photo Capture & Demo Selection -->
+      <div id="step-container-1" class="step-view">
+        <div class="card" style="max-width:840px; margin:0 auto;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <div>
+              <h2 style="font-size:18px; font-weight:800; color:var(--text-main);">Step 1: Capture or Select Object</h2>
+              <p style="font-size:13px; color:var(--text-muted);">Snap a photo using your camera or pick a pre-loaded reference bottle.</p>
+            </div>
+            <span class="badge-pill" style="margin-bottom:0;">BATCH: BATCH-2026-PET-084</span>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 1fr 1fr; gap:20px;">
+            <!-- Left: Viewport / Snapshot Box -->
+            <div>
+              <div style="position:relative; background:#000; border-radius:10px; overflow:hidden; height:280px; display:flex; align-items:center; justify-content:center; border:1px solid var(--border-color);" id="viewport-frame">
+                <!-- SVG or Live video -->
+                <div id="step1-photo-display" style="width:100%; height:100%; display:flex; align-items:center; justify-content:center;"></div>
+                
+                <!-- Camera status tag -->
+                <div style="position:absolute; bottom:12px; left:12px; background:rgba(0,0,0,0.75); color:var(--yellow); font-family:var(--font-mono); font-size:10px; padding:3px 8px; border-radius:4px; border:1px solid rgba(250,204,21,0.3);">
+                  <span id="photo-angle-tag">ROTATION: 0° (Front View)</span>
+                </div>
+              </div>
+
+              <!-- 4 Manual Turntable Angles Guidance -->
+              <div style="margin-top:12px;">
+                <div style="display:flex; justify-content:space-between; font-size:11px; font-family:var(--font-mono); color:var(--text-muted); margin-bottom:6px;">
+                  <span>MANUAL TURNTABLE (ROTATE BOTTLE)</span>
+                  <span class="text-station-yellow">Guided 4 Angles</span>
+                </div>
+                <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:6px;">
+                  <button class="btn btn-secondary" style="padding:6px; font-size:11px;" onclick="setDemoAngle(0)" id="angle-pill-0">0°</button>
+                  <button class="btn btn-secondary" style="padding:6px; font-size:11px;" onclick="setDemoAngle(90)" id="angle-pill-90">90°</button>
+                  <button class="btn btn-secondary" style="padding:6px; font-size:11px;" onclick="setDemoAngle(180)" id="angle-pill-180">180°</button>
+                  <button class="btn btn-secondary" style="padding:6px; font-size:11px;" onclick="setDemoAngle(270)" id="angle-pill-270">270°</button>
+                </div>
+              </div>
+            </div>
+
+            <!-- Right: Options & Source Switcher -->
+            <div style="display:flex; flex-direction:column; justify-content:space-between;">
+              <div style="display:flex; flex-direction:column; gap:14px;">
+                <div>
+                  <label style="font-size:12px; font-weight:700; color:var(--text-main); display:block; margin-bottom:6px;">CAPTURE SOURCE</label>
+                  <div style="display:grid; grid-template-columns:1fr 1fr; gap:8px;">
+                    <button class="btn btn-primary" id="btn-use-demo" onclick="selectCaptureMode('demo')">
+                      📁 Use Demo Samples
+                    </button>
+                    <button class="btn btn-secondary" id="btn-use-cam" onclick="selectCaptureMode('webcam')">
+                      📷 Live USB Camera
+                    </button>
+                  </div>
+                </div>
+
+                <div id="demo-samples-picker">
+                  <label style="font-size:12px; font-weight:700; color:var(--text-main); display:block; margin-bottom:6px;">SELECT DEMO OBJECT</label>
+                  <select id="demo-item-select" class="btn btn-secondary" style="width:100%; text-align:left; font-size:12px;" onchange="changeDemoSample(this.value)">
+                    <option value="clean">01: Clean 250ml PET (Useful Recyclable)</option>
+                    <option value="foreign">02: Non-PET Metallic Foil & Neck Band</option>
+                    <option value="residue">03: Visible Liquid / Sticky Syrup Residue</option>
+                    <option value="glare">04: Partial Glare Crease (Requires Review)</option>
+                  </select>
+                </div>
+
+                <!-- Weight input -->
+                <div>
+                  <label style="font-size:12px; font-weight:700; color:var(--text-main); display:block; margin-bottom:4px;">MEASURED BOTTLE TARE WEIGHT</label>
+                  <div style="display:flex; align-items:center; gap:8px;">
+                    <input id="demo-weight-input" type="number" step="0.1" value="18.4" style="background:var(--bg-subtle); border:1px solid var(--border-color); color:var(--text-main); padding:8px 12px; border-radius:6px; font-family:var(--font-mono); font-weight:bold; font-size:14px; width:100px;">
+                    <span style="font-size:13px; color:var(--text-muted); font-family:var(--font-mono);">grams</span>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Next Button -->
+              <div style="margin-top:20px; border-top:1px solid var(--border-color); pt:16px;">
+                <button class="btn btn-primary" style="width:100%; font-size:15px; padding:12px;" onclick="goToStep(2)">
+                  Proceed to Inspection & Screening →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 2 CONTAINER: AI Measurement & Useful vs Waste -->
+      <div id="step-container-2" class="step-view" style="display:none;">
+        <div class="card" style="max-width:840px; margin:0 auto;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <div>
+              <h2 style="font-size:18px; font-weight:800; color:var(--text-main);">Step 2: Measure & Segregate</h2>
+              <p style="font-size:13px; color:var(--text-muted);">AI inspects 4 frames to identify useful recyclable material vs contaminants.</p>
+            </div>
+            <button class="btn btn-secondary" style="padding:4px 10px; font-size:11px;" onclick="goToStep(1)">← Back to Photo</button>
+          </div>
+
+          <div style="display:grid; grid-template-columns: 320px 1fr; gap:20px;">
+            <!-- Left: Scanned Photo Preview with 6. Loading Animation Scan Line -->
+            <div style="position:relative; background:#000; border-radius:10px; overflow:hidden; height:280px; display:flex; align-items:center; justify-content:center; border:1px solid var(--border-color);">
+              <div id="step2-photo-display" style="width:100%; height:100%;"></div>
+              <div id="scanning-effect" class="scan-line-anim"></div>
+              <div style="position:absolute; top:12px; right:12px; background:rgba(0,0,0,0.8); color:var(--yellow); font-family:var(--font-mono); font-size:10px; padding:3px 8px; border-radius:4px;">
+                4-VIEW SCAN COMPLETE
+              </div>
+            </div>
+
+            <!-- Right: Useful vs Waste Segregation Breakdown -->
+            <div style="display:flex; flex-direction:column; justify-content:space-between;">
+              <div>
+                <!-- Primary Status Card -->
+                <div id="ai-verdict-box" style="padding:14px; border-radius:8px; margin-bottom:14px; font-family:var(--font-mono);">
+                  <!-- Injected dynamically -->
+                </div>
+
+                <!-- Useful vs Waste Comparison Grid -->
+                <div style="display:grid; grid-template-columns:1fr 1fr; gap:10px; margin-bottom:14px;">
+                  <!-- Useful Part -->
+                  <div style="background:rgba(34,197,94,0.08); border:1px solid rgba(34,197,94,0.3); border-radius:8px; padding:12px;">
+                    <div style="color:var(--green); font-weight:bold; font-size:12px; margin-bottom:4px;">
+                      ♻️ USEFUL MATERIAL
+                    </div>
+                    <div id="useful-material-text" style="font-size:12px; color:var(--text-main);">
+                      18.4g High-Grade Clear PET
+                    </div>
+                    <div style="font-size:10px; color:var(--text-muted); margin-top:4px;">
+                      Eligible for bottle-to-bottle flake granulation.
+                    </div>
+                  </div>
+
+                  <!-- Waste Part -->
+                  <div style="background:rgba(239,68,68,0.08); border:1px solid rgba(239,68,68,0.3); border-radius:8px; padding:12px;">
+                    <div style="color:var(--red); font-weight:bold; font-size:12px; margin-bottom:4px;">
+                      🚫 WASTE / CONTAMINANT
+                    </div>
+                    <div id="waste-material-text" style="font-size:12px; color:var(--text-main);">
+                      None Detected
+                    </div>
+                    <div style="font-size:10px; color:var(--text-muted); margin-top:4px;">
+                      0% foreign material observed.
+                    </div>
+                  </div>
+                </div>
+
+                <!-- Human Operator Review Options -->
+                <div style="background:var(--bg-subtle); border:1px solid var(--border-color); border-radius:8px; padding:10px 14px;">
+                  <div style="display:flex; justify-content:space-between; font-size:11px; margin-bottom:6px;">
+                    <span style="font-weight:bold; color:var(--text-main);">HUMAN OPERATOR VERIFICATION:</span>
+                    <span style="color:var(--yellow); font-family:var(--font-mono);" id="operator-stamp-text">Original AI Preserved</span>
+                  </div>
+                  <div style="display:flex; gap:8px;">
+                    <button class="btn btn-secondary" style="flex:1; font-size:11px; padding:6px;" onclick="setOperatorDecision('CONFIRM')">
+                      ✓ Confirm AI Result
+                    </button>
+                    <button class="btn btn-secondary" style="flex:1; font-size:11px; padding:6px;" onclick="setOperatorDecision('OVERRIDE_CONTAM')">
+                      Mark as Contaminated
+                    </button>
+                    <button class="btn btn-secondary" style="flex:1; font-size:11px; padding:6px;" onclick="setOperatorDecision('OVERRIDE_CLEAN')">
+                      Mark as Useful
+                    </button>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Forward to Step 3 -->
+              <div style="margin-top:16px;">
+                <button class="btn btn-primary" style="width:100%; font-size:15px; padding:12px;" onclick="goToStep(3)">
+                  Contact Matched Warehouses with Useful Material →
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- STEP 3 CONTAINER: Contact & Dispatch to Warehouses -->
+      <div id="step-container-3" class="step-view" style="display:none;">
+        <div class="card" style="max-width:840px; margin:0 auto;">
+          <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+            <div>
+              <h2 style="font-size:18px; font-weight:800; color:var(--text-main);">Step 3: Warehouse Matching & Handover</h2>
+              <p style="font-size:13px; color:var(--text-muted);">Directly dispatch your verified recyclables to participating recycling dealers.</p>
+            </div>
+            <button class="btn btn-secondary" style="padding:4px 10px; font-size:11px;" onclick="goToStep(2)">← Back to Inspection</button>
+          </div>
+
+          <!-- Batch Manifest Header -->
+          <div style="background:var(--bg-subtle); border:1px solid var(--border-color); border-radius:8px; padding:12px 16px; margin-bottom:16px; display:flex; justify-content:space-between; align-items:center;">
+            <div>
+              <span style="font-size:11px; color:var(--text-muted); font-family:var(--font-mono);">READY BATCH:</span>
+              <strong style="color:var(--yellow); font-family:var(--font-mono); font-size:14px; margin-left:6px;">BATCH-2026-PET-084</strong>
+              <span style="color:var(--text-muted); margin:0 8px;">•</span>
+              <span style="font-size:12px;" id="manifest-summary-text">1 Inspected Bottle • 0.018 kg Net Useful Flake</span>
+            </div>
+            <!-- 9. Copy Button -->
+            <button class="btn-copy" onclick="copyBatchId('BATCH-2026-PET-084')">
+              📋 <span>Copy Batch ID</span>
+            </button>
+          </div>
+
+          <!-- Matched Warehouses Cards -->
+          <div style="display:flex; flex-direction:column; gap:12px;">
+            
+            <!-- Warehouse 1 -->
+            <div class="card" style="padding:16px; border:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <h3 style="font-size:15px; font-weight:800; color:var(--text-main);">Apex Polymers & Re-Granulation</h3>
+                  <span class="badge-pill" style="margin-bottom:0; font-size:9px;">BEST MATCH FOR GRADE A</span>
+                </div>
+                <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">
+                  Specialty: Bottle-to-bottle rPET flakes • Purchase Price: <strong style="color:var(--yellow);">₹42 / kg</strong> • Distance: 4.2 km
+                </div>
+              </div>
+              <button class="btn btn-primary" onclick="openDispatchModal('Apex Polymers & Re-Granulation')">
+                Request Pickup & Dispatch
+              </button>
+            </div>
+
+            <!-- Warehouse 2 -->
+            <div class="card" style="padding:16px; border:1px solid var(--border-color); display:flex; justify-content:space-between; align-items:center;">
+              <div>
+                <div style="display:flex; align-items:center; gap:8px;">
+                  <h3 style="font-size:15px; font-weight:800; color:var(--text-main);">EcoFlake Recyclers Hub</h3>
+                  <span class="badge-pill" style="margin-bottom:0; font-size:9px; color:var(--text-muted); border-color:var(--border-color); background:transparent;">INDUSTRIAL RECYCLER</span>
+                </div>
+                <div style="font-size:12px; color:var(--text-muted); margin-top:4px;">
+                  Specialty: Polyester staple fiber & thermoform sheet • Purchase Price: <strong style="color:var(--yellow);">₹34 / kg</strong> • Distance: 8.5 km
+                </div>
+              </div>
+              <button class="btn btn-secondary" onclick="openDispatchModal('EcoFlake Recyclers Hub')">
+                Offer to Recycler
+              </button>
+            </div>
+
+          </div>
+
+          <!-- Reset / Inspect Another Bottle -->
+          <div style="text-align:center; margin-top:24px;">
+            <button class="btn btn-secondary" onclick="resetToFirstBottle()">
+              🔄 Inspect Another Bottle & Append to Batch
+            </button>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- SECTION 2: WAREHOUSES & RECYCLER DIRECTORY                     -->
+    <!-- ============================================================== -->
+    <div id="section-warehouses" class="nav-section" style="display:none;">
+      <div class="card">
+        <h2 style="font-size:20px; font-weight:800; color:var(--text-main); margin-bottom:8px;">Participating Recycling Warehouses & Dealers</h2>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">
+          SCRAP-LINK connects local collection points directly to vetted recycling plants, guaranteeing fair purchase pricing based on documented inspection evidence.
+        </p>
+
+        <div style="display:grid; grid-template-columns: repeat(3, 1fr); gap:16px;">
+          <!-- Card 1 -->
+          <div class="card" style="background:var(--bg-subtle);">
+            <h3 style="font-size:15px; font-weight:800; color:var(--text-main);">Apex Polymers & Re-Granulation</h3>
+            <div style="font-size:12px; color:var(--yellow); font-family:var(--font-mono); margin:6px 0;">₹42.00 / kg • Grade A Only</div>
+            <p style="font-size:12px; color:var(--text-muted); line-height:1.5;">
+              Requires 0% visible contamination. Inspects all 4-angle image proofs before accepting vehicle delivery.
+            </p>
+          </div>
+
+          <!-- Card 2 -->
+          <div class="card" style="background:var(--bg-subtle);">
+            <h3 style="font-size:15px; font-weight:800; color:var(--text-main);">EcoFlake Recyclers Hub</h3>
+            <div style="font-size:12px; color:var(--yellow); font-family:var(--font-mono); margin:6px 0;">₹34.00 / kg • Secondary Grade</div>
+            <p style="font-size:12px; color:var(--text-muted); line-height:1.5;">
+              Accepts Grade A and Wash-Required batches. Converts material into polyester staple yarn and thermoformed trays.
+            </p>
+          </div>
+
+          <!-- Card 3 -->
+          <div class="card" style="background:var(--bg-subtle);">
+            <h3 style="font-size:15px; font-weight:800; color:var(--text-main);">Metro Plastics & Aggregates</h3>
+            <div style="font-size:12px; color:var(--yellow); font-family:var(--font-mono); margin:6px 0;">₹26.00 / kg • Mixed PET</div>
+            <p style="font-size:12px; color:var(--text-muted); line-height:1.5;">
+              Processes mixed and discounted lots into industrial strapping bands and composite construction granules.
+            </p>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- SECTION 3: BATCH LEDGER & HISTORY                              -->
+    <!-- ============================================================== -->
+    <div id="section-ledger" class="nav-section" style="display:none;">
+      <div class="card">
+        <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:16px;">
+          <div>
+            <h2 style="font-size:20px; font-weight:800; color:var(--text-main);">Collection Batch Ledger</h2>
+            <p style="font-size:13px; color:var(--text-muted);">Local records preserving individual bottle measurements, 4-angle visual evidence, and dealer acceptance logs.</p>
+          </div>
+          <!-- 10. Print Button -->
+          <button class="btn btn-secondary" onclick="window.print()">
+            🖨️ Print Manifest
+          </button>
+        </div>
+
+        <table style="width:100%; border-collapse:collapse; font-size:12px; font-family:var(--font-mono);">
+          <thead>
+            <tr style="border-bottom:2px solid var(--border-color); text-align:left; color:var(--text-muted);">
+              <th style="padding:10px;">BATCH ID</th>
+              <th style="padding:10px;">COLLECTION POINT</th>
+              <th style="padding:10px;">BOTTLE COUNT</th>
+              <th style="padding:10px;">NET WEIGHT</th>
+              <th style="padding:10px;">STATUS</th>
+            </tr>
+          </thead>
+          <tbody id="full-ledger-tbody">
+            <tr style="border-bottom:1px solid var(--border-color);">
+              <td style="padding:10px; font-weight:bold; color:var(--yellow);">BATCH-2026-PET-084</td>
+              <td style="padding:10px;">Green Meadows Society - Station 4</td>
+              <td style="padding:10px;">1</td>
+              <td style="padding:10px;">0.018 kg</td>
+              <td style="padding:10px;"><span class="badge-pill" style="margin-bottom:0;">INSPECTION ACTIVE</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-color);">
+              <td style="padding:10px; font-weight:bold;">BATCH-2026-PET-083</td>
+              <td style="padding:10px;">Sunrise Park Enclave - Depot B</td>
+              <td style="padding:10px;">24</td>
+              <td style="padding:10px;">0.442 kg</td>
+              <td style="padding:10px;"><span style="color:var(--green); font-weight:bold;">✓ HANDOVER COMPLETED</span></td>
+            </tr>
+            <tr style="border-bottom:1px solid var(--border-color);">
+              <td style="padding:10px; font-weight:bold;">BATCH-2026-PET-082</td>
+              <td style="padding:10px;">Cyber City Residences - Tower 3</td>
+              <td style="padding:10px;">30</td>
+              <td style="padding:10px;">0.585 kg</td>
+              <td style="padding:10px;"><span style="color:var(--red); font-weight:bold;">✕ REJECTED (HIGH CONTAM)</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- SECTION 4: CAD ENCLOSURE SPECIFICATIONS                        -->
+    <!-- ============================================================== -->
+    <div id="section-cad" class="nav-section" style="display:none;">
+      <div class="card">
+        <h2 style="font-size:20px; font-weight:800; color:var(--text-main); margin-bottom:8px;">CAD v2.4 Engineering Drawings & Physical Station</h2>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:16px;">
+          Drawing ID: SL-CAD-GA-001 Revision A • Units: mm • Enclosure Envelope & Camera Mounting
+        </p>
+
+        <div style="background:var(--bg-subtle); padding:12px; border-radius:8px; border-left:4px solid var(--yellow); margin-bottom:20px; font-size:12px; color:var(--text-muted);">
+          <strong>Submission Note:</strong> "The current CAD defines a preliminary enclosure envelope and component arrangement. Dimensions are design assumptions used for layout planning. Physical fit, camera performance, lighting, structural integrity and manufacturing tolerances will be verified during prototyping."
+        </div>
+
+        <div style="display:grid; grid-template-columns:repeat(4, 1fr); gap:12px; font-family:var(--font-mono); font-size:11px;">
+          <div style="background:var(--bg-input); padding:12px; border-radius:6px; border:1px solid var(--border-color);">
+            <span style="color:var(--text-muted); font-size:9px; display:block;">CHAMBER ENVELOPE</span>
+            <strong style="color:var(--text-main); font-size:13px;">300 × 200 × 450 mm</strong>
+          </div>
+          <div style="background:var(--bg-input); padding:12px; border-radius:6px; border:1px solid var(--border-color);">
+            <span style="color:var(--text-muted); font-size:9px; display:block;">MANUAL TURNTABLE</span>
+            <strong style="color:var(--text-main); font-size:13px;">Ø78 × 4 mm</strong>
+          </div>
+          <div style="background:var(--bg-input); padding:12px; border-radius:6px; border:1px solid var(--border-color);">
+            <span style="color:var(--text-muted); font-size:9px; display:block;">CAMERA MOUNT (USB)</span>
+            <strong style="color:var(--text-main); font-size:13px;">Z = 355 mm (H-95)</strong>
+          </div>
+          <div style="background:var(--bg-input); padding:12px; border-radius:6px; border:1px solid var(--border-color);">
+            <span style="color:var(--text-muted); font-size:9px; display:block;">WORKING DISTANCE</span>
+            <strong style="color:var(--text-main); font-size:13px;">Approx. 210 mm</strong>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ============================================================== -->
+    <!-- SECTION 5: EXPANDABLE FAQ ACCORDION                            -->
+    <!-- ============================================================== -->
+    <div id="section-faq" class="nav-section" style="display:none;">
+      <div class="card" style="max-width:840px; margin:0 auto;">
+        <h2 style="font-size:20px; font-weight:800; color:var(--text-main); margin-bottom:8px;">Frequently Asked Questions (FAQ)</h2>
+        <p style="font-size:13px; color:var(--text-muted); margin-bottom:20px;">
+          Clear answers regarding SCRAP-LINK's inspection station, accuracy boundaries, and warehouse coordination.
+        </p>
+
+        <!-- 19. Expandable FAQ Accordion Items -->
+        <div class="faq-item open">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Does SCRAP-LINK detect hidden or chemical contamination?</span>
+            <span class="faq-icon">▼</span>
+          </div>
+          <div class="faq-answer">
+            No. The system only screens for <em>visible surface indicators</em> (food residue, foreign non-PET material such as foil or PVC, and visible wetness/liquids). An outcome of "No visible indicator" denotes that no visible cues were observed in the camera frames, but does not certify that the bottle is chemically clean or certified food-grade recyclable.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>How does manual rotation work in the prototype?</span>
+            <span class="faq-icon">▼</span>
+          </div>
+          <div class="faq-answer">
+            The initial prototype utilizes a manual turntable platform (Ø78mm) inside the chamber. The software guides the operator to rotate the bottle through 0°, 90°, 180°, and 270° angles to ensure 360° visual coverage. Motorized turntable rotation is designed as a future upgrade.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>Why is blockchain excluded from the initial prototype?</span>
+            <span class="faq-icon">▼</span>
+          </div>
+          <div class="faq-answer">
+            Blockchain is treated as an architectural feasibility study. Blockchain cannot detect contamination or validate image focus, nor can it prevent incorrect manual weight entries (the Oracle problem). For a single-laptop local pilot, standard SHA-256 cryptographic hashes provide complete auditability without the high costs, key management, and latency of a distributed blockchain.
+          </div>
+        </div>
+
+        <div class="faq-item">
+          <div class="faq-question" onclick="toggleFaq(this)">
+            <span>How do warehouses receive the sorted materials?</span>
+            <span class="faq-icon">▼</span>
+          </div>
+          <div class="faq-answer">
+            Once a batch is assembled and verified at the collection point, it is offered to participating recycling dealers through the platform. Dealers can review the image proof manifest and bottle count before accepting. Physical handover is tracked separately upon carrier arrival.
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </main>
+
+  <!-- ================= 2. SIMPLE COOKIE BANNER ================= -->
+  <div id="cookie-banner">
+    <div style="font-size:12px; font-weight:bold; color:var(--text-main);">🍪 Cookie & Local Storage Notice</div>
+    <div style="font-size:11px; color:var(--text-muted); line-height:1.4;">
+      Scrap Link uses local browser storage strictly to preserve batch records, inspection manifests, and your interface theme preference.
+    </div>
+    <div style="display:flex; justify-content:flex-end; gap:8px;">
+      <button class="btn btn-primary" style="padding:4px 12px; font-size:11px;" onclick="dismissCookieBanner()">
+        Accept & Close
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= 4. BACK TO TOP BUTTON ================= -->
+  <button id="back-to-top" onclick="window.scrollTo({top: 0, behavior: 'smooth'})" title="Back to top">
+    ↑
+  </button>
+
+  <!-- ================= 20. FLOATING CONTACT BUTTON & DRAWER ================= -->
+  <button id="floating-contact-btn" onclick="toggleContactDrawer()">
+    💬 Contact / Support
+  </button>
+
+  <div id="contact-drawer">
+    <div style="display:flex; justify-content:space-between; align-items:center;">
+      <strong style="color:var(--text-main); font-size:14px;">Scrap Link Field Support</strong>
+      <button onclick="toggleContactDrawer()" style="background:none; border:none; color:var(--text-muted); cursor:pointer; font-size:16px;">✕</button>
+    </div>
+    <p style="font-size:11px; color:var(--text-muted);">
+      Need help with station setup, camera alignment, or dealer collection scheduling?
+    </p>
+    <div style="display:flex; flex-direction:column; gap:8px;">
+      <input type="text" placeholder="Your Name or Society" style="background:var(--bg-subtle); border:1px solid var(--border-color); color:var(--text-main); padding:8px 10px; border-radius:6px; font-size:12px;">
+      <input type="text" placeholder="Phone or Email" style="background:var(--bg-subtle); border:1px solid var(--border-color); color:var(--text-main); padding:8px 10px; border-radius:6px; font-size:12px;">
+      <textarea placeholder="Describe issue or request pickup..." rows="3" style="background:var(--bg-subtle); border:1px solid var(--border-color); color:var(--text-main); padding:8px 10px; border-radius:6px; font-size:12px;"></textarea>
+      <button class="btn btn-primary" style="font-size:12px; padding:8px;" onclick="submitSupportForm()">
+        Send Inquiry
+      </button>
+    </div>
+  </div>
+
+  <!-- ================= 17. CONFIRMATION MODAL ================= -->
+  <div id="confirmation-modal" class="modal-overlay">
+    <div class="modal-box">
+      <h3 style="font-size:16px; font-weight:800; color:var(--text-main); margin-bottom:8px;" id="modal-title">Confirm Warehouse Dispatch</h3>
+      <p style="font-size:12px; color:var(--text-muted); margin-bottom:16px;" id="modal-desc">
+        Are you sure you want to offer Batch BATCH-2026-PET-084 to this dealer?
+      </p>
+      <div style="display:flex; justify-content:flex-end; gap:8px;">
+        <button class="btn btn-secondary" onclick="closeConfirmModal()">Cancel</button>
+        <button class="btn btn-primary" id="modal-confirm-btn" onclick="executeModalAction()">Confirm & Dispatch</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= 13. OPERATOR LOGIN MODAL WITH PASSWORD TOGGLE ================= -->
+  <div id="login-modal" class="modal-overlay">
+    <div class="modal-box" style="max-width:380px;">
+      <div style="display:flex; justify-content:space-between; align-items:center; margin-bottom:14px;">
+        <h3 style="font-size:16px; font-weight:800; color:var(--text-main);">Station Operator Login</h3>
+        <button onclick="closeLoginModal()" style="background:none; border:none; color:var(--text-muted); cursor:pointer;">✕</button>
+      </div>
+      <div style="display:flex; flex-direction:column; gap:10px;">
+        <div>
+          <label style="font-size:11px; color:var(--text-muted); display:block; margin-bottom:4px;">OPERATOR ID</label>
+          <input type="text" value="OP-402" style="background:var(--bg-subtle); border:1px solid var(--border-color); color:var(--text-main); padding:8px 10px; border-radius:6px; font-size:12px; width:100%;">
+        </div>
+        <div>
+          <label style="font-size:11px; color:var(--text-muted); display:block; margin-bottom:4px;">SECURITY KEY</label>
+          <div style="position:relative; display:flex; align-items:center;">
+            <!-- 13. Password Toggle Input -->
+            <input id="operator-password-input" type="password" value="demo1234" style="background:var(--bg-subtle); border:1px solid var(--border-color); color:var(--text-main); padding:8px 36px 8px 10px; border-radius:6px; font-size:12px; width:100%;">
+            <button type="button" onclick="togglePasswordVisibility()" style="position:absolute; right:8px; background:none; border:none; cursor:pointer; font-size:14px; color:var(--text-muted);">
+              👁️
+            </button>
+          </div>
+        </div>
+        <button class="btn btn-primary" style="margin-top:8px;" onclick="handleOperatorLogin()">
+          Sign In to Station
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ================= FOOTER WITH 18. LAST UPDATED DATE ================= -->
+  <footer style="background:var(--bg-card); border-top:1px solid var(--border-color); padding:20px; font-size:11px; color:var(--text-muted); text-align:center;">
+    <div class="container" style="padding:0; display:flex; justify-content:space-between; align-items:center; flex-wrap:wrap; gap:10px;">
+      <div>
+        <strong>Scrap Link</strong> • Hardware-Assisted Recyclables Quality Platform
+      </div>
+      <!-- 18. Last Updated Date -->
+      <div>
+        Last Updated: <span id="last-updated-date" style="color:var(--text-main); font-family:var(--font-mono);">October 22, 2026</span> • CAD v2.4 Architecture
+      </div>
+    </div>
+  </footer>
+
+  <!-- Scripts -->
+  <script src="js/sample-bottles.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
